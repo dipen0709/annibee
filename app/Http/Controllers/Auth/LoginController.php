@@ -55,12 +55,7 @@ use AuthenticatesUsers;
         if ($email && $password) {
             if (Auth::attempt(['email' => $email, 'password' => $password])) {
                 $users = Auth::user();
-                if ($users->status == 1) {                    
-                    return redirect()->route('dashboard');
-                } else {
-                    Auth::logout();
-                    return redirect()->route('loginpage')->with('error', trans('common.label_common_status_inactive'));
-                }
+                return redirect()->route('dashboard');
             } else {
                 return redirect()->route('loginpage')->with('error', trans('auth.failed'));
             }
